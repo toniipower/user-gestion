@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { EmployeesAppComponent } from './components/employees-app.component';
 import { EmployeeViewComponent } from './components/employee-view/employee-view.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DepartmentViewComponent } from './components/department-view/department-view.component';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   
     // UserAppComponent,
     EmployeesAppComponent,
+    DepartmentViewComponent,
   ],
   imports: [
     BrowserModule,
