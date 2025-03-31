@@ -29,7 +29,8 @@ public class EmployeeService {
 
     
     public Optional<Employee> findById(Long id){ //Optional<Employee> => para avisar de que puede ser nulo o no encontrar nada
-        return employeeRepository.findById(id);
+        return Optional.ofNullable(employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se ha encontrado el empleado con id: " + id)));
     }
 
     public Employee update(Employee employeeDetails, Long id){
