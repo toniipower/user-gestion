@@ -12,16 +12,27 @@
 				{
 					"name": "getAllEmployee",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5iZiI6MTc0MzQzMTY2NCwiaXNzIjoiQXJlbGFuY2VHZXN0b3JFbXBsZWFkb3MiLCJleHAiOjE3NDM0Mzg4NjQsImlhdCI6MTc0MzQzMTY2NCwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwianRpIjoiYTNlNTc1ZjAtYTNjOC00ZTllLTliYzgtZjVhNDBiYzMzZDg5In0.IFlTTGYKS5w_aZGwdKVNZyGX-2kllB0ogd8NBQMUSN0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/employees",
+							"raw": "http://localhost:8080/api/employees",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"employees"
 							]
 						}
@@ -31,6 +42,16 @@
 				{
 					"name": "createEmployee",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5iZiI6MTc0MzQzMTY2NCwiaXNzIjoiQXJlbGFuY2VHZXN0b3JFbXBsZWFkb3MiLCJleHAiOjE3NDM0Mzg4NjQsImlhdCI6MTc0MzQzMTY2NCwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwianRpIjoiYTNlNTc1ZjAtYTNjOC00ZTllLTliYzgtZjVhNDBiYzMzZDg5In0.IFlTTGYKS5w_aZGwdKVNZyGX-2kllB0ogd8NBQMUSN0",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -43,13 +64,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/employees",
+							"raw": "http://localhost:8080/api/employees",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"employees"
 							]
 						}
@@ -62,13 +84,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/employees/2",
+							"raw": "http://localhost:8080/api/employees/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"employees",
 								"2"
 							]
@@ -82,13 +105,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/employees/6",
+							"raw": "http://localhost:8080/api/employees/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"employees",
 								"6"
 							]
@@ -97,7 +121,7 @@
 					"response": []
 				},
 				{
-					"name": "uodateEmployee",
+					"name": "updateEmployee",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -111,13 +135,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/employees/3",
+							"raw": "http://localhost:8080/api/employees/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"employees",
 								"3"
 							]
@@ -136,13 +161,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/departments",
+							"raw": "http://localhost:8080/api/departments",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departments"
 							]
 						}
@@ -164,13 +190,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/departments",
+							"raw": "http://localhost:8080/api/departments",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departments"
 							]
 						}
@@ -183,13 +210,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/departments/1",
+							"raw": "http://localhost:8080/api/departments/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departments",
 								"1"
 							]
@@ -212,13 +240,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/departments/2",
+							"raw": "http://localhost:8080/api/departments/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departments",
 								"2"
 							]
@@ -232,15 +261,91 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/departments/3",
+							"raw": "http://localhost:8080/api/departments/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
 								"departments",
 								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login_Register",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5iZiI6MTc0MzQzMTIxNSwiaXNzIjoiQXJlbGFuY2VHZXN0b3JFbXBsZWFkb3MiLCJleHAiOjE3NDM0Mzg0MTUsImlhdCI6MTc0MzQzMTIxNSwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwianRpIjoiMjliMTU2NzMtNWM2Mi00NDAxLTlkYWYtYTA5ZTA3ZWVhYTc5In0.bYir3tKZwG-l-8_uf_drF-eUniEURbQoIMIHL6p8b10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"contrasena\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Admin\",\r\n  \"lastname\": \"Dev\",\r\n  \"dni\": \"12345678Z\",\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin\",\r\n  \"rol\": \"ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
 							]
 						}
 					},

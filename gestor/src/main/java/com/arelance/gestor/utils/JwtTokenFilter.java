@@ -1,4 +1,4 @@
-package utils;
+package com.arelance.gestor.utils;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;

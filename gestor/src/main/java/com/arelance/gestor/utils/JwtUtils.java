@@ -1,4 +1,4 @@
-package utils;
+package com.arelance.gestor.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

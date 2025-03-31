@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("api/departments")
 @CrossOrigin(origins = "http://localhost:4200")
 public class DepartmentController {
 
