@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("api/employees")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
 

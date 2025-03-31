@@ -43,7 +43,8 @@ public class Employee {
     @Email(message = "Formato email no valido")
     private String email;
     @Column(nullable = false)
-    @Size(min = 3, max = 8)
+
+    @Size(min = 3)
     private String password;
 
     @ManyToMany
