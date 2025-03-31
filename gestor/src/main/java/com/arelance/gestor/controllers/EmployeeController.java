@@ -1,14 +1,10 @@
 package com.arelance.gestor.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.arelance.gestor.entities.Employee;
 import com.arelance.gestor.services.EmployeeService;
-
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -25,5 +21,10 @@ public class EmployeeController {
     public List<Employee> getAll(){
         return employeeService.getAll();
     }
-    
+
+
+    @PostMapping
+    public Employee create(Employee employee){
+        return employeeService.create(employee);
+    }
 }
