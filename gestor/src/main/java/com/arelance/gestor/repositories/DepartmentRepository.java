@@ -7,5 +7,6 @@ import com.arelance.gestor.entities.Department;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
-    
+
+    boolean existsByName(String name);
 }
