@@ -40,6 +40,12 @@ public class EmployeeController {
         return employeeService.findById(id).orElse(null);
     }
 
+    @PutMapping("/{id}")
+    public Employee update(@RequestBody @Valid Employee employeeDetails, @PathVariable Long id){
+        return employeeService.update(employeeDetails, id);
+    }
+
+
 
 
 }
