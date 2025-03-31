@@ -13,5 +13,5 @@ public class LoginRequest {
     private String email;
 
     @NotBlank
-    private String contrasena;
+    private String password;
 }

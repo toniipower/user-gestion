@@ -289,7 +289,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsIm5iZiI6MTc0MzQzMTIxNSwiaXNzIjoiQXJlbGFuY2VHZXN0b3JFbXBsZWFkb3MiLCJleHAiOjE3NDM0Mzg0MTUsImlhdCI6MTc0MzQzMTIxNSwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwianRpIjoiMjliMTU2NzMtNWM2Mi00NDAxLTlkYWYtYTA5ZTA3ZWVhYTc5In0.bYir3tKZwG-l-8_uf_drF-eUniEURbQoIMIHL6p8b10",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjJAZXhhbXBsZS5jb20iLCJuYmYiOjE3NDM0MzIyNjQsImlzcyI6IkFyZWxhbmNlR2VzdG9yRW1wbGVhZG9zIiwiZXhwIjoxNzQzNDM5NDY0LCJpYXQiOjE3NDM0MzIyNjQsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImp0aSI6ImFiYjYxODcwLTY0YzctNDBlZS1hZWQyLTczOTkxYWQ3MDdmNyJ9.5FLBsQoWG7NCdG2R4oxd3dfSEwp0yfCDWm15GJZAmtA",
 									"type": "string"
 								}
 							]
@@ -298,7 +298,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"contrasena\": \"admin\"\r\n}",
+							"raw": "{\r\n  \"email\": \"consultant@example.com\",\r\n  \"password\": \"cons\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
