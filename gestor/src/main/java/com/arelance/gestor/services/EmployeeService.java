@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.arelance.gestor.entities.Employee;
 import com.arelance.gestor.repositories.EmployeeRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmployeeService {
@@ -20,6 +21,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+
+    @Transactional
     public Employee create(Employee employee) {
 
         // Comprobar si el email y el dni ya existen
@@ -48,6 +51,8 @@ public class EmployeeService {
                 .orElseThrow(() -> new EmployeeNotFoundException(id))); // usando la excepcion personalizada
     }
 
+
+    @Transactional
     public Employee update(Employee employeeDetails, Long id) {
         // Buscar el empleado y lanzar excepción si no existe
         Employee employee = findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
