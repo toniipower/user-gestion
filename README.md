@@ -1,2 +1,3 @@
 # user-gestion
-Proyect creado para colaborar juntos en prácticas de empresa Arelance con compañeros
+Proyect creado para colaborar juntos en prácticas de empresa Arelance con compañeros de la empresa.
+git
