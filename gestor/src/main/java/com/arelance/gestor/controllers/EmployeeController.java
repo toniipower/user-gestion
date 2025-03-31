@@ -25,7 +25,6 @@ public class EmployeeController {
         return employeeService.getAll();
     }
 
-
     @PostMapping
     public Employee create(@RequestBody Employee employee){
         return employeeService.create(employee);
