@@ -10,15 +10,13 @@ import javax.persistence.Table;
 
 import com.arelance.gestor.enums.Erole;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "roles")
 public class Role  {
