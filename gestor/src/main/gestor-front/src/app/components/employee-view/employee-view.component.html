@@ -1,24 +1,10 @@
 <div class="container mt-4">
-  <!-- Navegación -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 rounded">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Gestión de Empleados</a>
-      <div class="navbar-nav me-auto">
-        <a class="nav-link active" routerLink="/employees" routerLinkActive="active">Empleados</a>
-        <a class="nav-link" routerLink="/department" routerLinkActive="active">Departamentos</a>
-      </div>
-      <div class="navbar-nav">
-        <button class="btn btn-outline-danger" (click)="logout()">
-          <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-        </button>
-      </div>
-    </div>
-  </nav>
+  <app-navbar></app-navbar>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Lista de Empleados</h2>
-    <button *ngIf="isAdmin()" class="btn btn-success" (click)="addEmployee()">
-      <i class="fas fa-plus me-2"></i>Añadir Empleado
+    <button *ngIf="isAdmin()" class="btn btn-primary btn-lg shadow-sm" (click)="addEmployee()">
+      <i class="fas fa-user-plus me-2"></i>Añadir Nuevo Empleado
     </button>
   </div>
 
@@ -51,11 +37,17 @@
               </td>
               <td *ngIf="isAdmin()">
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-primary me-1" (click)="editEmployee(employee)">
-                    <i class="fas fa-edit"></i>
+                  <button class="btn btn-sm btn-outline-primary me-2" 
+                          (click)="editEmployee(employee)"
+                          title="Editar empleado"
+                          data-bs-toggle="tooltip">
+                    <i class="fas fa-edit me-1"></i>Editar
                   </button>
-                  <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(employee.id)">
-                    <i class="fas fa-trash"></i>
+                  <button class="btn btn-sm btn-outline-danger" 
+                          (click)="deleteEmployee(employee.id)"
+                          title="Eliminar empleado"
+                          data-bs-toggle="tooltip">
+                    <i class="fas fa-trash me-1"></i>Eliminar
                   </button>
                 </div>
               </td>

@@ -22,11 +22,7 @@
           type="text" 
           id="lastname"
           formControlName="lastname"
-          [class.is-invalid]="lastnameControl?.invalid && lastnameControl?.touched"
-          placeholder="Ingrese su apellido">
-        <div class="error-message" *ngIf="lastnameControl?.invalid && lastnameControl?.touched">
-          <span *ngIf="lastnameControl?.errors?.['required']">El apellido es requerido</span>
-        </div>
+          placeholder="Ingrese su apellido (opcional)">
       </div>
 
       <div class="form-group">

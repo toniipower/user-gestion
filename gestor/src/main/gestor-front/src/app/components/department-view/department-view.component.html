@@ -1,23 +1,9 @@
 <div class="container mt-4">
-  <!-- Navegación -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 rounded">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Gestión de Departamentos</a>
-      <div class="navbar-nav me-auto">
-        <a class="nav-link" routerLink="/employees" routerLinkActive="active">Empleados</a>
-        <a class="nav-link active" routerLink="/department" routerLinkActive="active">Departamentos</a>
-      </div>
-      <div class="navbar-nav">
-        <button class="btn btn-outline-danger" (click)="logout()">
-          <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
-        </button>
-      </div>
-    </div>
-  </nav>
+  <app-navbar></app-navbar>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">Lista de Departamentos</h2>
-    <button *ngIf="isAdmin()" class="btn btn-success" (click)="addDepartment()">
+    <button *ngIf="isAdmin()" class="btn btn-primary btn-lg shadow-sm" (click)="addDepartment()">
       <i class="fas fa-plus me-2"></i>Añadir Departamento
     </button>
   </div>
@@ -39,11 +25,17 @@
               <td>{{ department.name }}</td>
               <td *ngIf="isAdmin()">
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-primary me-1" (click)="editDepartment(department)">
-                    <i class="fas fa-edit"></i>
+                  <button class="btn btn-sm btn-outline-primary me-2" 
+                          (click)="editDepartment(department)"
+                          title="Editar departamento"
+                          data-bs-toggle="tooltip">
+                    <i class="fas fa-edit me-1"></i>Editar
                   </button>
-                  <button class="btn btn-sm btn-outline-danger" (click)="deleteDepartment(department.id)">
-                    <i class="fas fa-trash"></i>
+                  <button class="btn btn-sm btn-outline-danger" 
+                          (click)="deleteDepartment(department.id)"
+                          title="Eliminar departamento"
+                          data-bs-toggle="tooltip">
+                    <i class="fas fa-trash me-1"></i>Eliminar
                   </button>
                 </div>
               </td>

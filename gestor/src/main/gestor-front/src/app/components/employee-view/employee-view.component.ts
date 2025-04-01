@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ interface Employee {
   templateUrl: './employee-view.component.html',
   styleUrls: ['./employee-view.component.css']
 })
-export class EmployeeViewComponent implements OnInit {
+export class EmployeeViewComponent implements OnInit, AfterViewInit {
   employees: Employee[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -33,6 +33,14 @@ export class EmployeeViewComponent implements OnInit {
 
   ngOnInit() {
     this.loadEmployees();
+  }
+
+  ngAfterViewInit() {
+    // Inicializar todos los tooltips usando la versión global de Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new (window as any).bootstrap.Tooltip(tooltipTriggerEl);
+    });
   }
 
   loadEmployees() {
@@ -53,7 +61,16 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.authService.getRole() === 'ADMIN';
+    // Buscar el empleado actual por email (asumiendo que el email del usuario logueado está en localStorage)
+    const currentUserEmail = localStorage.getItem('email');
+    const currentEmployee = this.employees.find(emp => emp.email === currentUserEmail);
+    
+    if (currentEmployee) {
+      console.log('Rol del empleado actual:', currentEmployee.role.erole);
+      return currentEmployee.role.erole === 'ADMIN';
+    }
+    
+    return false;
   }
 
   addEmployee() {
@@ -65,14 +82,20 @@ export class EmployeeViewComponent implements OnInit {
   }
 
   deleteEmployee(employeeId: number) {
-    if (confirm('¿Estás seguro de que quieres eliminar este empleado?')) {
+    if (confirm('¿Estás seguro de que deseas eliminar este empleado? Esta acción no se puede deshacer.')) {
+      this.isLoading = true;
       this.employeeService.deleteEmployee(employeeId).subscribe({
         next: () => {
           this.employees = this.employees.filter(emp => emp.id !== employeeId);
+          this.isLoading = false;
+          // Mostrar mensaje de éxito
+          alert('Empleado eliminado exitosamente');
         },
         error: (error) => {
           this.errorMessage = 'Error al eliminar el empleado';
           console.error('Error deleting employee:', error);
+          this.isLoading = false;
+          alert('Error al eliminar el empleado. Por favor, intente nuevamente.');
         }
       });
     }

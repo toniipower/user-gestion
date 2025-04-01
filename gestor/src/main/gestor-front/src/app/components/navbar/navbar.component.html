@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 rounded">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Gestión de Empleados</a>
+    <div class="navbar-nav me-auto">
+      <a class="nav-link" routerLink="/employees" routerLinkActive="active">Empleados</a>
+      <a class="nav-link" routerLink="/department" routerLinkActive="active">Departamentos</a>
+    </div>
+    <div class="navbar-nav">
+      <button class="btn btn-outline-danger" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</nav> 

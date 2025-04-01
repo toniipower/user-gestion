@@ -7,15 +7,22 @@ import { AppComponent } from './app.component';
 // import { UserAppComponent } from './components/user-app.component';
 import { EmployeesAppComponent } from './components/employees-app.component';
 import { EmployeeViewComponent } from './components/employee-view/employee-view.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DepartmentViewComponent } from './components/department-view/department-view.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { AuthComponent } from './components/auth/auth/auth.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'employees', component: EmployeeViewComponent },
+  { path: 'department', component: DepartmentViewComponent },
+  { path: '', redirectTo: '/employees', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
@@ -29,14 +36,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DepartmentViewComponent,
     LoginComponent,
     RegisterComponent,
-    AuthComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

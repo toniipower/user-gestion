@@ -32,6 +32,7 @@ export class AuthService {
       tap((response: LoginResponse) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
+        localStorage.setItem('email', email);
         localStorage.setItem('tokenExpiration', (Date.now() + response.expiresIn * 1000).toString());
         
         // Redirigir según el rol
@@ -72,6 +73,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
     localStorage.removeItem('tokenExpiration');
     this.router.navigate(['/login']);
   }
