@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface Employee {
   id: number;
@@ -31,7 +32,7 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadEmployees();
   }
 
@@ -82,23 +83,41 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
   }
 
   deleteEmployee(employeeId: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este empleado? Esta acción no se puede deshacer.')) {
-      this.isLoading = true;
-      this.employeeService.deleteEmployee(employeeId).subscribe({
-        next: () => {
-          this.employees = this.employees.filter(emp => emp.id !== employeeId);
-          this.isLoading = false;
-          // Mostrar mensaje de éxito
-          alert('Empleado eliminado exitosamente');
-        },
-        error: (error) => {
-          this.errorMessage = 'Error al eliminar el empleado';
-          console.error('Error deleting employee:', error);
-          this.isLoading = false;
-          alert('Error al eliminar el empleado. Por favor, intente nuevamente.');
-        }
-      });
-    }
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción no se puede deshacer",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isLoading = true;
+        this.employeeService.deleteEmployee(employeeId).subscribe({
+          next: () => {
+            this.employees = this.employees.filter(emp => emp.id !== employeeId);
+            this.isLoading = false;
+            Swal.fire(
+              '¡Eliminado!',
+              'El empleado ha sido eliminado exitosamente.',
+              'success'
+            );
+          },
+          error: (error) => {
+            this.errorMessage = 'Error al eliminar el empleado';
+            console.error('Error deleting employee:', error);
+            this.isLoading = false;
+            Swal.fire(
+              'Error',
+              'No se pudo eliminar el empleado. Por favor, intente nuevamente.',
+              'error'
+            );
+          }
+        });
+      }
+    });
   }
 
   logout(): void {

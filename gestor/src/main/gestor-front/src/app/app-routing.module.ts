@@ -10,11 +10,12 @@ import { EmployeeViewComponent } from './components/employee-view/employee-view.
 import { DepartmentViewComponent } from './components/department-view/department-view.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: '/employees', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'employees', component: EmployeeViewComponent, canActivate: [AuthGuard] },
-  { path: 'department', component: DepartmentViewComponent, canActivate: [AuthGuard] }
+  { path: 'department', component: DepartmentViewComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/employees' }
 ];
 
 @NgModule({
