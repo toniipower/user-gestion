@@ -79,7 +79,7 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
   }
 
   editEmployee(employee: Employee) {
-    this.router.navigate(['/edit-employee', employee.id]);
+    this.router.navigate(['/employees/edit', employee.id]);
   }
 
   deleteEmployee(employeeId: number) {
