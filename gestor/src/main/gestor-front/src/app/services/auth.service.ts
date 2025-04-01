@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, catchError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
-interface LoginResponse {
-  token: string;
-  role: string;
-  expiresIn: number;
-}
 
 interface LoginRequest {
   email: string;
   password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  tipo: string;
+  email: string;
+  rol: string;
 }
 
 @Injectable({
@@ -30,23 +32,42 @@ export class AuthService {
     
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, loginData).pipe(
       tap((response: LoginResponse) => {
+        console.log('Login response:', response);
         localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('email', email);
-        localStorage.setItem('tokenExpiration', (Date.now() + response.expiresIn * 1000).toString());
+        localStorage.setItem('role', response.rol);
+        localStorage.setItem('email', response.email);
+        localStorage.setItem('tokenExpiration', (Date.now() + 3600000).toString()); // 1 hora de expiración
         
-        // Redirigir según el rol
-        if (response.role === 'ADMIN') {
-          this.router.navigate(['/admin']);
-        } else {
-          this.router.navigate(['/employees']);
-        }
+        // Asegurarnos de que la redirección se ejecute
+        setTimeout(() => {
+          if (response.rol === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/employees']);
+          }
+        }, 0);
       }),
       catchError(error => {
+        console.error('Login error:', error);
+        let errorMessage = 'Error al iniciar sesión';
+        
         if (error.status === 401) {
-          throw new Error('Credenciales inválidas');
+          if (error.error && error.error.message) {
+            if (error.error.message.includes('Usuario no encontrado')) {
+              errorMessage = 'El usuario no existe en la base de datos';
+            } else if (error.error.message.includes('Contraseña incorrecta')) {
+              errorMessage = 'La contraseña es incorrecta';
+            }
+          } else {
+            errorMessage = 'Credenciales inválidas';
+          }
+        } else if (error.status === 0) {
+          errorMessage = 'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet.';
+        } else if (error.status === 500) {
+          errorMessage = 'Error en el servidor. Por favor, intenta más tarde.';
         }
-        throw error;
+        
+        return throwError(() => new Error(errorMessage));
       })
     );
   }
@@ -55,8 +76,9 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/register`, { name, lastname, dni, email, password, rol }).pipe(
       tap((response: LoginResponse) => {
         localStorage.setItem('token', response.token);
-        localStorage.setItem('role', response.role);
-        localStorage.setItem('tokenExpiration', (Date.now() + response.expiresIn * 1000).toString());
+        localStorage.setItem('role', response.rol);
+        localStorage.setItem('email', response.email);
+        localStorage.setItem('tokenExpiration', (Date.now() + 3600000).toString());
         this.router.navigate(['/employees']);
       })
     );
@@ -80,19 +102,14 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    const expiration = localStorage.getItem('tokenExpiration');
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
     
-    if (!token || !expiration) {
+    if (!token || !tokenExpiration) {
       return false;
     }
-
-    const isExpired = Date.now() > parseInt(expiration);
-    if (isExpired) {
-      this.logout();
-      return false;
-    }
-
-    return true;
+    
+    const expirationTime = parseInt(tokenExpiration);
+    return Date.now() < expirationTime;
   }
 
   getToken(): string | null {
