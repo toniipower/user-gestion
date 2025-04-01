@@ -1,24 +1,80 @@
-<h2>Lista de Empleados</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>DNI</th>
-      <th>Dirección</th>
-      <th>Rol</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let employee of employees">
-      <td>{{ employee.id }}</td>
-      <td>{{ employee.name }}</td>
-      <td>{{ employee.lastName }}</td>
-      <td>{{ employee.dni }}</td>
-      <td>{{ employee.address }}</td>
-      <td>{{ employee.role }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container mt-4">
+  <!-- Navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 rounded">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Gestión de Empleados</a>
+      <div class="navbar-nav me-auto">
+        <a class="nav-link active" routerLink="/employee" routerLinkActive="active">Empleados</a>
+        <a class="nav-link" routerLink="/department" routerLinkActive="active">Departamentos</a>
+      </div>
+      <div class="navbar-nav">
+        <button class="btn btn-outline-danger" (click)="logout()">
+          <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </nav>
 
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Lista de Empleados</h2>
+    <button *ngIf="isAdmin()" class="btn btn-success" (click)="addEmployee()">
+      <i class="fas fa-plus me-2"></i>Añadir Empleado
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Email</th>
+              <th>DNI</th>
+              <th>Dirección</th>
+              <th>Rol</th>
+              <th *ngIf="isAdmin()">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees">
+              <td>{{ employee.id }}</td>
+              <td>{{ employee.name }}</td>
+              <td>{{ employee.lastname }}</td>
+              <td>{{ employee.email }}</td>
+              <td>{{ employee.dni }}</td>
+              <td>{{ employee.address }}</td>
+              <td>
+                <span class="badge bg-primary">{{ employee.role?.erole }}</span>
+              </td>
+              <td *ngIf="isAdmin()">
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary me-1" (click)="editEmployee(employee)">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(employee.id)">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>

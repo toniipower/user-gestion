@@ -1,0 +1,166 @@
+.employee-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #333;
+  margin: 0;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.employee-table th,
+.employee-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.employee-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.edit-button {
+  color: #2196F3;
+}
+
+.edit-button:hover {
+  background-color: rgba(33, 150, 243, 0.1);
+}
+
+.delete-button {
+  color: #f44336;
+}
+
+.delete-button:hover {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Estilos para el estado de carga */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+  color: #f44336;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: rgba(244, 67, 54, 0.1);
+  border-radius: 4px;
+}
+
+/* Estilos personalizados adicionales a Bootstrap */
+.table th {
+  font-weight: 600;
+  color: #495057;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn-group .btn {
+  padding: 0.25rem 0.5rem;
+}
+
+.badge {
+  font-size: 0.875rem;
+  padding: 0.5em 0.75em;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .table-responsive {
+    margin: 0 -1rem;
+  }
+  
+  .btn-group {
+    display: flex;
+    gap: 0.25rem;
+  }
+}
+
+/* Estilos para la navegación */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: #495057;
+}
+
+.nav-link {
+  color: #6c757d;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #495057;
+}
+
+.nav-link.active {
+  color: #0d6efd;
+  font-weight: 500;
+} 

@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employee } from '../models/employee';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:8080/api/employees'; // 🔹 Cambia esto según tu backend
+  private apiUrl = 'http://localhost:8080/api/employees';
 
   constructor(private http: HttpClient) {}
 
-  getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.apiUrl);
+  getEmployees(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
   }
+
+  deleteEmployee(employeeId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${employeeId}`);
+  }
+
+  getEmployeeById(employeeId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${employeeId}`);
+  }
+  
+  updateEmployee(employee: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${employee.id}`, employee);
+  }
+  
 }

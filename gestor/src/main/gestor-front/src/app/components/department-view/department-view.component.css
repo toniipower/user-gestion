@@ -1,0 +1,51 @@
+.department-container {
+  padding: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+}
+
+.nav-link.active {
+  color: #007bff;
+}
+
+.btn-add {
+  margin-bottom: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.btn-action {
+  margin: 0 5px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.error-message {
+  color: #dc3545;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  background-color: #f8d7da;
+} 
