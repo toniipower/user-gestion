@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'employee', component: EmployeeViewComponent, canActivate: [AuthGuard] },
+  { path: 'employees', component: EmployeeViewComponent, canActivate: [AuthGuard] },
   { path: 'department', component: DepartmentViewComponent, canActivate: [AuthGuard] }
 ];
 
