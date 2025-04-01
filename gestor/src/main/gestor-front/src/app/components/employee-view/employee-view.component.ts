@@ -75,7 +75,7 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
   }
 
   addEmployee() {
-    this.router.navigate(['/add-employee']);
+    this.router.navigate(['/employees/new']);
   }
 
   editEmployee(employee: Employee) {

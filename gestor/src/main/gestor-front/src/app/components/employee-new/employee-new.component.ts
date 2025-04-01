@@ -1,44 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { DepartmentService } from '../../services/department.service';
+import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-employee-edit',
-  templateUrl: './employee-edit.component.html',
-  styleUrls: ['./employee-edit.component.css']
+  selector: 'app-employee-new',
+  templateUrl: './employee-new.component.html',
 })
-export class EmployeeEditComponent implements OnInit {
+export class EmployeeNewComponent implements OnInit {
   employeeForm: FormGroup;
   departments: any[] = [];
   isLoading: boolean = false;
-  employeeId: number = 0;
   errorMessage: string = '';
 
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
     private departmentService: DepartmentService,
-    private route: ActivatedRoute,
+    private authService: AuthService,
     private router: Router
   ) {
     this.employeeForm = this.fb.group({
       name: ['', Validators.required],
       lastname: [''],
       email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       dni: ['', Validators.required],
       address: [''],
-      department: [null],
-      role: ['', Validators.required]
+      department: [null]
     });
   }
 
   ngOnInit(): void {
-    this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadDepartments();
-    this.loadEmployee();
   }
 
   loadDepartments(): void {
@@ -57,33 +54,6 @@ export class EmployeeEditComponent implements OnInit {
     });
   }
 
-  loadEmployee(): void {
-    this.isLoading = true;
-    this.employeeService.getEmployeeById(this.employeeId).subscribe({
-      next: (employee) => {
-        this.employeeForm.patchValue({
-          name: employee.name,
-          lastname: employee.lastname,
-          email: employee.email,
-          dni: employee.dni,
-          address: employee.address,
-          department: employee.departmentId,
-          role: employee.role
-        });
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Error loading employee:', error);
-        this.isLoading = false;
-        Swal.fire(
-          'Error',
-          'No se pudo cargar la información del empleado',
-          'error'
-        );
-      }
-    });
-  }
-
   onSubmit(): void {
     if (this.employeeForm.valid) {
       this.isLoading = true;
@@ -91,31 +61,46 @@ export class EmployeeEditComponent implements OnInit {
       
       // Crear el objeto de empleado con los datos del formulario
       const employeeData = {
-        id: this.employeeId,
         name: formData.name,
-        lastname: formData.lastname,
+        lastname: formData.lastname || '',
         email: formData.email,
+        password: formData.password,
         dni: formData.dni,
-        address: formData.address,
-        departmentId: formData.department || null, // Si no hay departamento seleccionado, enviar null
-        role: formData.role
+        address: formData.address || '',
+        role: {
+          id: 2,
+          erole: null
+        },
+        departments: []
       };
 
-      this.employeeService.updateEmployee(employeeData).subscribe({
+      console.log('Datos a enviar:', employeeData); // Para debugging
+
+      this.employeeService.createEmployee(employeeData).subscribe({
         next: () => {
           this.isLoading = false;
           Swal.fire(
             '¡Éxito!',
-            'Empleado actualizado correctamente',
+            'Empleado creado correctamente',
             'success'
           ).then(() => {
             this.router.navigate(['/employees']);
           });
         },
         error: (error) => {
-          console.error('Error updating employee:', error);
-          this.errorMessage = 'Error al actualizar el empleado';
+          console.error('Error creating employee:', error);
           this.isLoading = false;
+          
+          let errorMessage = 'Error al crear el empleado';
+          if (error.error && error.error.message) {
+            errorMessage = error.error.message;
+          }
+          
+          Swal.fire(
+            'Error',
+            errorMessage,
+            'error'
+          );
         }
       });
     } else {
@@ -145,11 +130,14 @@ export class EmployeeEditComponent implements OnInit {
     if (this.employeeForm.get('email')?.errors?.['email']) {
       errors.push('El email no es válido');
     }
+    if (this.employeeForm.get('password')?.errors?.['required']) {
+      errors.push('La contraseña es requerida');
+    }
+    if (this.employeeForm.get('password')?.errors?.['minlength']) {
+      errors.push('La contraseña debe tener al menos 6 caracteres');
+    }
     if (this.employeeForm.get('dni')?.errors?.['required']) {
       errors.push('El DNI es requerido');
-    }
-    if (this.employeeForm.get('role')?.errors?.['required']) {
-      errors.push('El rol es requerido');
     }
 
     if (errors.length > 0) {

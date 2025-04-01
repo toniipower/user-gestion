@@ -5,7 +5,7 @@
     <div class="col-md-8">
       <div class="card shadow">
         <div class="card-body">
-          <h2 class="text-center mb-4">Editar Empleado</h2>
+          <h2 class="text-center mb-4">Nuevo Empleado</h2>
 
           <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
@@ -50,6 +50,23 @@
             </div>
 
             <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                formControlName="password"
+                [class.is-invalid]="employeeForm.get('password')?.invalid && employeeForm.get('password')?.touched"
+                placeholder="Ingrese la contraseña">
+              <div class="invalid-feedback" *ngIf="employeeForm.get('password')?.errors?.['required'] && employeeForm.get('password')?.touched">
+                La contraseña es requerida
+              </div>
+              <div class="invalid-feedback" *ngIf="employeeForm.get('password')?.errors?.['minlength'] && employeeForm.get('password')?.touched">
+                La contraseña debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <div class="mb-3">
               <label for="dni" class="form-label">DNI</label>
               <input 
                 type="text" 
@@ -89,7 +106,7 @@
                 class="btn btn-primary" 
                 [disabled]="employeeForm.invalid || isLoading">
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isLoading ? 'Guardando...' : 'Guardar Cambios' }}
+                {{ isLoading ? 'Creando...' : 'Crear Empleado' }}
               </button>
             </div>
           </form>

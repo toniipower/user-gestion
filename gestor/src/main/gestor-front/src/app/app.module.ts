@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
+import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EmployeeEditComponent } from './components/employee-edit/employee-edit.
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    EmployeeEditComponent
+    EmployeeEditComponent,
+    EmployeeNewComponent
   ],
   imports: [
     BrowserModule,
