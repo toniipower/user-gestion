@@ -1,10 +1,12 @@
-<div class="container mt-4">
+<div class="container-xl mt-4">
   <app-navbar></app-navbar>
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap mt-4">
     <h2 class="mb-0">Lista de Departamentos</h2>
-    <button *ngIf="isAdmin()" class="btn btn-primary btn-lg shadow-sm" (click)="addDepartment()">
-      <i class="fas fa-plus me-2"></i>Añadir Departamento
+    <button *ngIf="isAdmin()" class="btn btn-primary btn-md btn-md-lg shadow-sm mt-2 mt-sm-0" (click)="addDepartment()">
+      <i class="fas fa-user-plus me-1 me-sm-2"></i>
+      <span class="d-none d-sm-inline">Añadir Nuevo Departamento</span>
+      <span class="d-inline d-sm-none">Añadir</span>
     </button>
   </div>
 
@@ -25,13 +27,13 @@
               <td>{{ department.name }}</td>
               <td *ngIf="isAdmin()">
                 <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-primary me-2" 
+                  <button class="btn btn-sm btn-outline-primary me-2"
                           (click)="editDepartment(department)"
                           title="Editar departamento"
                           data-bs-toggle="tooltip">
                     <i class="fas fa-edit me-1"></i>Editar
                   </button>
-                  <button class="btn btn-sm btn-outline-danger" 
+                  <button class="btn btn-sm btn-outline-danger"
                           (click)="deleteDepartment(department.id)"
                           title="Eliminar departamento"
                           data-bs-toggle="tooltip">
