@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
@@ -75,4 +76,59 @@ public class EmployeeServiceTest {
             employeeService.create(employee);
         });
     }
+
+    @Test
+    void testUpdateEmployeeById() {
+        // Arrange
+        Long employeeId = 1L;
+        Employee existingEmployee = new Employee();
+        existingEmployee.setId(employeeId);
+        existingEmployee.setName("Alvaro");
+        existingEmployee.setLastname("Mero");
+        existingEmployee.setDni("12345678A");
+        existingEmployee.setEmail("alvaro@mero.com");
+        existingEmployee.setPassword("123456");
+
+        Employee updatedEmployee = new Employee();
+        updatedEmployee.setName("Alvaro Updated");
+        updatedEmployee.setLastname("Mero Updated");
+        updatedEmployee.setEmail("alvaro.updated@mero.com");
+
+        when(employeeRepository.findById(employeeId)).thenReturn(java.util.Optional.of(existingEmployee));
+        when(employeeRepository.existsByEmail("alvaro.updated@mero.com")).thenReturn(false);
+        when(employeeRepository.save(any(Employee.class))).thenReturn(updatedEmployee);
+
+        // Act
+        Employee result = employeeService.update(updatedEmployee, employeeId);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("Alvaro Updated", result.getName());
+        assertEquals("Mero Updated", result.getLastname());
+        assertEquals("alvaro.updated@mero.com", result.getEmail());
+    }
+
+
+    @Test
+    void testDeleteEmployeeById() {
+        // Arrange
+        Long employeeId = 1L;
+        Employee existingEmployee = new Employee();
+        existingEmployee.setId(employeeId);
+        existingEmployee.setName("Alvaro");
+        existingEmployee.setEmail("alvaro@mero.com");
+
+        // Configurar el mock para indicar que el empleado existe
+        when(employeeRepository.existsById(employeeId)).thenReturn(true);
+
+        // Act
+        employeeService.delete(employeeId);
+
+        // Assert
+        // Verificar que el método delete del repositorio fue llamado
+        verify(employeeRepository).deleteById(employeeId);
+    }
+
+
+
 } 
