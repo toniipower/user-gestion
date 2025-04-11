@@ -1,21 +1,19 @@
-<div class="container-xl mt-4">
+<div class="employee-container">
   <app-navbar></app-navbar>
 
-  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-    <h2 class="mb-0">Lista de Empleados</h2>
-    <button *ngIf="isAdmin()" class="btn btn-primary btn-md btn-md-lg shadow-sm mt-2 mt-sm-0" (click)="addEmployee()">
-      <i class="fas fa-user-plus me-1 me-sm-2"></i>
-      <span class="d-none d-sm-inline">Añadir Nuevo Empleado</span>
-      <span class="d-inline d-sm-none">Añadir</span>
-    </button>
-  </div>
+  <div class="content-wrapper">
+    <div class="header-section">
+      <h1>Empleados</h1>
+      <button *ngIf="isAdmin()" class="add-button" (click)="addEmployee()">
+        <i class="fas fa-plus"></i>
+        <span>Añadir Empleado</span>
+      </button>
+    </div>
 
-
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-light">
+    <div class="table-container">
+      <div class="table-wrapper">
+        <table>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
@@ -36,21 +34,17 @@
               <td>{{ employee.dni }}</td>
               <td>{{ employee.address }}</td>
               <td>
-                <span class="badge bg-primary">{{ employee.role?.erole }}</span>
+                <span class="role-badge">{{ employee.role?.erole }}</span>
               </td>
-              <td *ngIf="isAdmin()">
-                <div class="btn-group">
-                  <button class="btn btn-sm btn-outline-primary me-2"
-                          (click)="editEmployee(employee)"
-                          title="Editar empleado"
-                          data-bs-toggle="tooltip">
-                    <i class="fas fa-edit me-1"></i>Editar
+              <td *ngIf="isAdmin()" class="actions-cell">
+                <div class="action-buttons">
+                  <button class="edit-button" (click)="editEmployee(employee)">
+                    <i class="fas fa-edit"></i>
+                    <span>Editar</span>
                   </button>
-                  <button class="btn btn-sm btn-outline-danger"
-                          (click)="deleteEmployee(employee.id)"
-                          title="Eliminar empleado"
-                          data-bs-toggle="tooltip">
-                    <i class="fas fa-trash me-1"></i>Eliminar
+                  <button class="delete-button" (click)="deleteEmployee(employee.id)">
+                    <i class="fas fa-trash"></i>
+                    <span>Eliminar</span>
                   </button>
                 </div>
               </td>
@@ -59,17 +53,19 @@
         </table>
       </div>
     </div>
-  </div>
 
-  <!-- Mensaje de carga -->
-  <div *ngIf="isLoading" class="text-center my-4">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Cargando...</span>
+    <!-- Estado de carga -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner">
+        <i class="fas fa-circle-notch fa-spin"></i>
+      </div>
+      <span>Cargando empleados...</span>
     </div>
-  </div>
 
-  <!-- Mensaje de error -->
-  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-    {{ errorMessage }}
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="fas fa-exclamation-circle"></i>
+      <span>{{ errorMessage }}</span>
+    </div>
   </div>
 </div>

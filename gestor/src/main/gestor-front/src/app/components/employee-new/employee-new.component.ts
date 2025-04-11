@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-employee-new',
   templateUrl: './employee-new.component.html',
+  styleUrls: ['./employee-new.component.css']
 })
 export class EmployeeNewComponent implements OnInit {
   employeeForm: FormGroup;
@@ -148,5 +149,9 @@ export class EmployeeNewComponent implements OnInit {
         confirmButtonColor: '#3085d6'
       });
     }
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/employees']);
   }
 } 

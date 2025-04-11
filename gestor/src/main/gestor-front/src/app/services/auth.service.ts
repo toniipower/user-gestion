@@ -25,7 +25,22 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) {
+    // Verificar el estado de la autenticación al iniciar el servicio
+    this.checkAuthState();
+  }
+
+  private checkAuthState(): void {
+    const token = this.getToken();
+    const tokenExpiration = localStorage.getItem('tokenExpiration');
+    
+    if (token && tokenExpiration) {
+      const expirationTime = parseInt(tokenExpiration);
+      if (Date.now() > expirationTime) {
+        this.logout();
+      }
+    }
+  }
 
   login(email: string, password: string): Observable<LoginResponse> {
     const loginData: LoginRequest = { email, password };
@@ -38,14 +53,7 @@ export class AuthService {
         localStorage.setItem('email', response.email);
         localStorage.setItem('tokenExpiration', (Date.now() + 3600000).toString()); // 1 hora de expiración
         
-        // Asegurarnos de que la redirección se ejecute
-        setTimeout(() => {
-          if (response.rol === 'ADMIN') {
-            this.router.navigate(['/admin']);
-          } else {
-            this.router.navigate(['/employees']);
-          }
-        }, 0);
+        this.router.navigate(['/employees']);
       }),
       catchError(error => {
         console.error('Login error:', error);
@@ -93,23 +101,25 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('email');
-    localStorage.removeItem('tokenExpiration');
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
+    const token = this.getToken();
     const tokenExpiration = localStorage.getItem('tokenExpiration');
     
     if (!token || !tokenExpiration) {
       return false;
     }
-    
+
     const expirationTime = parseInt(tokenExpiration);
-    return Date.now() < expirationTime;
+    if (Date.now() > expirationTime) {
+      this.logout();
+      return false;
+    }
+
+    return true;
   }
 
   getToken(): string | null {

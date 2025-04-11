@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
+import { DepartmentNewComponent } from './components/department-new/department-new.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EmployeeNewComponent } from './components/employee-new/employee-new.com
     RegisterComponent,
     NavbarComponent,
     EmployeeEditComponent,
-    EmployeeNewComponent
+    EmployeeNewComponent,
+    DepartmentNewComponent
   ],
   imports: [
     BrowserModule,

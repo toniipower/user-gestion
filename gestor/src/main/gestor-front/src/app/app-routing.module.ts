@@ -10,16 +10,38 @@ import { EmployeeViewComponent } from './components/employee-view/employee-view.
 import { DepartmentViewComponent } from './components/department-view/department-view.component';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 import { EmployeeNewComponent } from './components/employee-new/employee-new.component';
+import { DepartmentNewComponent } from './components/department-new/department-new.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'employees', component: EmployeeViewComponent, canActivate: [AuthGuard] },
-  { path: 'department', component: DepartmentViewComponent, canActivate: [AuthGuard] },
-  { path: 'employees/edit/:id', component: EmployeeEditComponent },
-  { path: 'employees/new', component: EmployeeNewComponent },
-  { path: '**', redirectTo: '/employees' }
+  { 
+    path: 'employees', 
+    component: EmployeeViewComponent, 
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'department', 
+    component: DepartmentViewComponent, 
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'department/new', 
+    component: DepartmentNewComponent, 
+    canActivate: [AuthGuard] 
+  },
+  { 
+    path: 'employees/edit/:id', 
+    component: EmployeeEditComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'employees/new', 
+    component: EmployeeNewComponent,
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
